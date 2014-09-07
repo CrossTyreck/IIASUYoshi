@@ -1,13 +1,4 @@
-﻿/***************************************************************/
-// GameASU.Account 
-/***************************************************************/
-// Use this box to track changes made in code since I am not 
-// using a repository.
-/***************************************************************/
-// 1. Add user to role before logging in.
-
-
-using System;
+﻿using System;
 using System.Web;
 using System.Web.UI;
 using Microsoft.AspNet.Identity;
@@ -44,20 +35,6 @@ namespace GameASU.Account
 
                 if (user != null)
                 {
-                    ////#1 Remove all roles from user
-                    //if (user.Roles.Count > 0)
-                    //{
-                    //    List<IdentityUserRole> roles = new List<IdentityUserRole>();
-                    //    roles.AddRange(user.Roles);
-
-                    //    foreach (IdentityUserRole role in roles)
-                    //    {
-                    //        user.Roles.Remove(role);
-                    //    }
-                    //}
-
-                    //Add user to the current role they selected
-                    //manager.AddToRole(user.Id, RoleDropDown.SelectedItem.Text);
                     IdentityHelper.SignIn(manager, user, RememberMe.Checked);
                     IdentityHelper.RedirectToReturnUrl("~/Default.aspx", Response);
                 }

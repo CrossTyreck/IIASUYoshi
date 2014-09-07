@@ -43,52 +43,8 @@
         </div>
 
     </div>
-    <div class="container">
-        <div class="row top5">
-            <div class="col-sm-3">
-                <img class="img-responsive" src="Images/gametileexample.jpg" alt="..." />
-                <p>Test</p>
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-        </div>
-        <div class="row top5">
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-        </div>
-        <div class="row top5">
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-            <div class="col-sm-3">
-                <img class="media-object" src="Images/gametileexample.jpg" alt="..." />
-            </div>
-        </div>
-    </div>
+    <asp:Panel ID="GameList" runat="server" CssClass="container">
+    </asp:Panel>
 
 
 </asp:Content>

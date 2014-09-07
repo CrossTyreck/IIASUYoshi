@@ -217,8 +217,10 @@
     <Content Include="GameHost.aspx">
       <BrowseToURL>~/GameHost.aspx</BrowseToURL>
     </Content>
-    <Content Include="Images\CrossKnight.jpg" />
-    <Content Include="Images\wolverine.png" />
+    <Content Include="Images\carouselWolv1.png" />
+    <Content Include="Images\carouselWolv2.png" />
+    <Content Include="Images\carouselWolv3.png" />
+    <Content Include="Images\gametileexample.jpg" />
     <Content Include="ListGames.aspx">
       <BrowseToURL>~/ListGames.aspx</BrowseToURL>
     </Content>

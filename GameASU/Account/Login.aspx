@@ -31,17 +31,7 @@
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="Password" CssClass="text-danger" ErrorMessage="The password field is required." />
                         </div>
                     </div>
-                    <%--<div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="RoleDropDown" CssClass="col-md-2 control-label">Choose Role</asp:Label>
-                        <div class="col-md-10">
-                            <asp:DropDownList runat="server" ID="RoleDropDown">
-                                <asp:ListItem>Player</asp:ListItem>
-                                <asp:ListItem>Developer</asp:ListItem>
-                            
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="RoleDropDown" CssClass="text-danger" ErrorMessage="A role is required." />
-                        </div>
-                    </div>--%>
+                    
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <div class="checkbox">

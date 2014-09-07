@@ -13,24 +13,17 @@
             </ol>
 
             <!-- Wrapper for slides -->
-            <!-- Image content size W=600px H=400px -->
+            <!-- Image content size W=800px H=400px -->
             <div class="carousel-inner">
                 <div id="0" class="item active">
                     <img src="Images/carouselWolv1.png" alt="Wolverine1">
-                    <%--<div class="carousel-caption">
-                                    </div>--%>
                 </div>
                 <div id="1" class="item">
                     <img src="Images/carouselWolv2.png" alt="Wolverine2">
-                    <%--<div class="carousel-caption">
-                                    </div>--%>
                 </div>
                 <div id="2" class="item">
                     <img src="Images/carouselWolv3.png" alt="Wolverine3">
-                    <%--<div class="carousel-caption">
-                                    </div>--%>
                 </div>
-                ...
             </div>
 
             <!-- Controls -->

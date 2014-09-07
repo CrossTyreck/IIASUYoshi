@@ -13,38 +13,44 @@ namespace GameASU
         {
             Panel rowContainer;
             Panel column;
-            Image gameImage;
+            ImageButton gameImage;
             Label gameName;
+
             for (int row = 0; row <= 5; row++)
             {
                 rowContainer = new Panel();
                 rowContainer.CssClass = "row top5";
+
+                //Rows can only contain 4 columns with the current front end
                 for (int col = 0; col <= 3; col++)
                 {
                     column = new Panel();
-                    gameImage = new Image();
+                    gameImage = new ImageButton();
                     gameName = new Label();
 
                     column.CssClass = "col-sm-3";
                     gameImage.CssClass = "img-responsive";
 
                     gameImage.ImageUrl = "Images/gametileexample.jpg";
-                    gameImage.AlternateText = "game name";
+                    gameImage.Click += new ImageClickEventHandler(gameClick);
+                    gameImage.AlternateText = "Space_Shooter";
 
-                    gameName.Text = "Super Awesome Game Name" + col;
+                    gameName.Text = gameImage.AlternateText + col;
                     
                     column.Controls.Add(gameImage);
                     column.Controls.Add(gameName);
 
                     rowContainer.Controls.Add(column);
                 }
+
                 GameList.Controls.Add(rowContainer);
             }
         }
 
-        protected void lnkTest_Click(object sender, EventArgs e)
+        protected void gameClick(object sender, EventArgs e)
         {
-            Response.Redirect("~/Listgames.aspx");
+            ImageButton gameClicked = sender as ImageButton;
+            Response.Redirect("GameHost.aspx?g=" + gameClicked.AlternateText);
         }
     }
 }

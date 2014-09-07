@@ -37,7 +37,8 @@
                 Remember to download the Unity WebPlayer plugin. 
             </p>
             <p>
-                <a class="btn btn-default" href="https://unity3d.com/webplayer">Unity WebPlayer Plugin &raquo;</a>
+                <a class="btn btn-default" href="http://webplayer.unity3d.com/download_webplayer-3.x/UnityWebPlayer.exe">Unity WebPlayer Plugin Windows &raquo;</a>
+                <a class="btn btn-default" href="http://webplayer.unity3d.com/download_webplayer-3.x/webplayer-mini.dmg">Unity WebPlayer Plugin Mac &raquo;</a>
             </p>
         </div>
     </div>

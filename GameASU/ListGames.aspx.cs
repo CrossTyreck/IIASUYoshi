@@ -1,4 +1,4 @@
-﻿using GameASU.Controller;
+﻿
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
@@ -13,22 +13,21 @@ namespace GameASU
     {
 
         protected String GamePath { get; set; }
-        protected BlobStorageAccess BSAccess;
 
         protected String GameName { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            GameName = "Space_Shooter.unity3d";
-            BSAccess = new BlobStorageAccess("games");
+            GameName = "Space_Shoot.unity3d";
+            
 
             Panel gamePanel = new Panel();
             gamePanel.ClientIDMode = ClientIDMode.Static;
-            gamePanel.ID = BSAccess.GetBlob(GameName).Name.Replace(".unity3d", "");
-            GamePath = BSAccess.GetBlob(GameName).Uri.ToString();
+            gamePanel.ID = GameName.Replace(".unity3d", "");
+            GamePath = HttpContext.Current.Server.MapPath("~/Games/") + GameName;
             ImageButton gameImage = new ImageButton();
             gameImage.ClientIDMode = ClientIDMode.Static;
-            gameImage.ID = "#" + BSAccess.GetBlob(GameName).Name.Replace(".unity3d", "");
+            gameImage.ID = "#" + GameName.Replace(".unity3d", "");
             gameImage.Attributes.Add("src", "Images/wolverine.png");
             gameImage.Click += PlayGame_Click;
             gamePanel.Controls.Add(gameImage);
@@ -40,11 +39,9 @@ namespace GameASU
         {
             if (GameName != "")
             {
-                CloudBlockBlob blockBlob = BSAccess.DownloadBlob(GameName);
-
                 using (var fileStream = System.IO.File.OpenWrite(HttpContext.Current.Server.MapPath("~/Games/" + GameName)))
                 {
-                    blockBlob.DownloadToStream(fileStream);
+                 
                 }
 
                 Response.Redirect("GameHost.aspx?g=" + GameName);

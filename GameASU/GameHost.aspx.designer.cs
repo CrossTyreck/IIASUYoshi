@@ -13,6 +13,15 @@ namespace GameASU {
     public partial class GameHost {
         
         /// <summary>
+        /// GameNameHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label GameNameHeader;
+        
+        /// <summary>
         /// Container control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace GameASU {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Container;
+        
+        /// <summary>
+        /// ClickPlay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ClickPlay;
     }
 }

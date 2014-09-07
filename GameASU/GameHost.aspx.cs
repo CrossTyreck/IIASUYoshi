@@ -16,11 +16,14 @@ namespace GameASU
         {
             GameName = Request.QueryString["g"];
 
+            GameNameHeader.Text = GameName;
+
             Panel gamePanel = new Panel();
             gamePanel.ClientIDMode = ClientIDMode.Static;
             gamePanel.ID = GameName.Replace(".unity3d", "");
 
-            Image gameImage = new Image();
+            ImageButton gameImage = new ImageButton();
+            gameImage.AlternateText = "CLICK TO PLAY!";
             gameImage.ClientIDMode = ClientIDMode.Static;
             gameImage.ID = "#" + GameName.Replace(".unity3d", "");
             gameImage.Attributes.Add("onclick", "javascript:LoadUnityAfterClick('Games/" + GameName +".unity3d', '375', '750', 'Space_Shooter')");

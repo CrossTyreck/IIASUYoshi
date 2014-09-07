@@ -44,20 +44,20 @@ namespace GameASU.Account
 
                 if (user != null)
                 {
-                    //#1 Remove all roles from user
-                    if (user.Roles.Count > 0)
-                    {
-                        List<IdentityUserRole> roles = new List<IdentityUserRole>();
-                        roles.AddRange(user.Roles);
+                    ////#1 Remove all roles from user
+                    //if (user.Roles.Count > 0)
+                    //{
+                    //    List<IdentityUserRole> roles = new List<IdentityUserRole>();
+                    //    roles.AddRange(user.Roles);
 
-                        foreach (IdentityUserRole role in roles)
-                        {
-                            user.Roles.Remove(role);
-                        }
-                    }
+                    //    foreach (IdentityUserRole role in roles)
+                    //    {
+                    //        user.Roles.Remove(role);
+                    //    }
+                    //}
 
                     //Add user to the current role they selected
-                    manager.AddToRole(user.Id, RoleDropDown.SelectedItem.Text);
+                    //manager.AddToRole(user.Id, RoleDropDown.SelectedItem.Text);
                     IdentityHelper.SignIn(manager, user, RememberMe.Checked);
                     IdentityHelper.RedirectToReturnUrl("~/Default.aspx", Response);
                 }

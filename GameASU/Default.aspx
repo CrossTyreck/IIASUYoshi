@@ -6,7 +6,7 @@
     <div class="jumbotron">
         <h1>ASU Gaming</h1>
         <p class="lead">Welcome to the only website dedicated to Arizona State University's Ira Fulton School of Engineering Game Design students!</p>
-        <p><a href="http://gaming.asu.edu" class="btn btn-primary btn-lg">Explore ASU Gaming &raquo;</a></p>
+        <p><a href="" class="btn btn-primary btn-lg">Interested in Game Development? &raquo;</a></p>
     </div>
 
     <div class="row">

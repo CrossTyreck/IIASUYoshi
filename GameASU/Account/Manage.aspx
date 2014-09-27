@@ -104,7 +104,7 @@
                             <img src="/Images/gametileexample.jpg" alt="Motivating Developer Pic">
                             <div class="caption">
                                 <h3>Interested in Game Development?</h3>
-                                <p><a href="#" class="btn btn-primary" role="button">Click Here</a></p>
+                                <p><a href="../DeveloperApplication.aspx" class="btn btn-primary" role="button">Click Here</a></p>
                             </div>
                         </div>
                     </div>

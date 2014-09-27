@@ -212,6 +212,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DeveloperApplication.aspx" />
     <Content Include="DeveloperDashboard.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="GameHost.aspx">
@@ -400,6 +401,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DeveloperApplication.aspx.cs">
+      <DependentUpon>DeveloperApplication.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeveloperApplication.aspx.designer.cs">
+      <DependentUpon>DeveloperApplication.aspx</DependentUpon>
     </Compile>
     <Compile Include="DeveloperDashboard.aspx.cs">
       <DependentUpon>DeveloperDashboard.aspx</DependentUpon>

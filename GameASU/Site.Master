@@ -71,10 +71,10 @@
                         </LoggedInTemplate>
                         <RoleGroups>
                             <%--Enable this if the developer dashboard will be accessed from the main screen--%>
-                            <%--<asp:RoleGroup Roles="Developer">
+                            <asp:RoleGroup Roles="Developer">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav navbar-right">
-                                        <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                        <li><a runat="server" href="~/Account/Manage" title="Manage your account"> Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
                                         <li>
                                             <asp:HyperLink runat="server" NavigateUrl="~/DeveloperDashboard.aspx" title="View Dashboard">Developers Corner</asp:HyperLink></li>
                                         <li>
@@ -82,7 +82,7 @@
                                         </li>
                                     </ul>
                                 </ContentTemplate>
-                            </asp:RoleGroup>--%>
+                            </asp:RoleGroup>
                             <asp:RoleGroup Roles="Player">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav navbar-right">

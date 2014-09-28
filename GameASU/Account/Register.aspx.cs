@@ -17,16 +17,16 @@ namespace GameASU.Account
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var user = new ApplicationUser() { UserName = Email.Text, Email = Email.Text };
             IdentityResult result = manager.Create(user, Password.Text);
-            
+
             if (result.Succeeded)
             {
-                RoleGroup roles = new RoleGroup();
-                
-                if (roles.Roles.Contains("Player"))
-                {
-                    manager.AddToRole(user.Id, "Player");
-                }
-             
+                RoleGroup role = new RoleGroup();
+
+                try { result = manager.AddToRole(Context.User.Identity.GetUserId(), "Player"); }
+
+                catch (InvalidOperationException eOp)
+                { Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + eOp.Message + " Please contact site Administrator.')", true); }
+
                 IdentityHelper.SignIn(manager, user, isPersistent: false);
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -36,8 +36,10 @@ namespace GameASU.Account
 
                 //IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                 IdentityHelper.RedirectToReturnUrl("~/PlayerDashboard.aspx?s=" + user.UserName, Response);
+
+
             }
-            else 
+            else
             {
                 ErrorMessage.Text = result.Errors.FirstOrDefault();
             }

@@ -138,7 +138,7 @@
                         </LoggedInTemplate>
                         <RoleGroups>
                             <%--Enable this if the developer dashboard will be accessed from the main screen--%>
-                            <%--<asp:RoleGroup Roles="Developer">
+                            <asp:RoleGroup Roles="Developer">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
@@ -149,7 +149,7 @@
                                         </li>
                                     </ul>
                                 </ContentTemplate>
-                            </asp:RoleGroup>--%>
+                            </asp:RoleGroup>
                             <asp:RoleGroup Roles="Player">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav navbar-right">

@@ -1,9 +1,6 @@
 ﻿<%@ Page Title="Upload a Unity Web Player Game" Language="C#" MasterPageFile="~/Dashboard.Master" AutoEventWireup="true" CodeBehind="UploadGame.aspx.cs" Inherits="GameASU.UploadGame" %>
 
-<asp:Content runat="server" ID="UploadGameNav" ContentPlaceHolderID="NavBar">
-
-</asp:Content>
-<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
+<asp:Content ID="DevBodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
     <div class="col-md-4">
         <%--<h1></h1>--%>

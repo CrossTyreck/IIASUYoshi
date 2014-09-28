@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using GameASU.Models;
+using System.Web.UI.WebControls;
 
 namespace GameASU.Account
 {
@@ -16,8 +17,16 @@ namespace GameASU.Account
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var user = new ApplicationUser() { UserName = Email.Text, Email = Email.Text };
             IdentityResult result = manager.Create(user, Password.Text);
+            
             if (result.Succeeded)
             {
+                RoleGroup roles = new RoleGroup();
+                
+                if (roles.Roles.Contains("Player"))
+                {
+                    manager.AddToRole(user.Id, "Player");
+                }
+             
                 IdentityHelper.SignIn(manager, user, isPersistent: false);
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

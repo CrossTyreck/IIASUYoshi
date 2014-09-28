@@ -31,11 +31,15 @@ namespace GameASU
             }
             else
             {
-                AddDeveloperRole();
+                if(AddDeveloperRole())
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + User.Identity.GetUserName() + " successfully added to Developer role.')", true);
+                }
+
             }
         }
 
-        private void AddDeveloperRole() 
+        private bool AddDeveloperRole() 
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
           
@@ -44,11 +48,15 @@ namespace GameASU
             try
             {
                 IdentityResult result = manager.AddToRole(Context.User.Identity.GetUserId(), "Developer");
+               
             }
             catch (InvalidOperationException eOp)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + eOp.Message + " Please contact site Administrator.')", true);
+                return false;
             }
+
+            return true;
         }
 
 

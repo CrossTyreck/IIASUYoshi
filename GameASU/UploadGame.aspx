@@ -16,7 +16,7 @@
             </div>
             <asp:Label ID="lblGameUpload" for="GameUpload" runat="server">Upload your Game!</asp:Label>
             <asp:FileUpload ID="GameUpload" runat="server" Width="389px" />
-            <asp:Label ID="lblFileStatus" CssClass="help-block" runat="server"></asp:Label>
+            <h3><asp:Label ID="lblFileStatus" CssClass="label label-success" runat="server"></asp:Label></h3>
             <br />
             <asp:Button ID="SubmitGame" runat="server" CssClass="btn btn-primary btn-lg" Text="Upload" />
         </asp:Panel>

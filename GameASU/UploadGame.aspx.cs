@@ -32,11 +32,11 @@ namespace GameASU
                     try
                     {
                         GameUpload.PostedFile.SaveAs(Server.MapPath("~/Games/" + GameUpload.FileName));
-                        lblFileStatus.Text = "File uploaded!";
+                        lblFileStatus.Text = "File upload successful!";
                     }
                     catch (Exception ex)
                     {
-                        lblFileStatus.Text = ex.Message + ". Basically, File could not be uploaded.";
+                        lblFileStatus.Text = ex.Message + ". File could not be uploaded.";
                     }
                 }
                 else{lblFileStatus.Text = "Cannot accept files of this type.";}

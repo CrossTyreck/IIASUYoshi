@@ -9,32 +9,32 @@ namespace GameASU.Data
 {
     
     [Table(Name = "tblGames")]
-    public class Games
+    public class Game
     {
-
+        
 #region Variables
 
         private int _id;
-        private int _tblDeveloperID;
+        private string _tblDeveloperID;
         private string _gameName;
         private int _screenWidth;
         private int _screenHeight;
 
-        [Column(IsPrimaryKey = true, Storage = "Id")]
+        [Column(IsPrimaryKey = true)]
         public int Id
         {
-            get{return this._id;}
-            set { }
+            get { return this._id; }
+            set { this._id = value; }
         }
 
-        [Column(Storage = "tblDeveloperID")]
-        public int tblDeveloperID
+        [Column()]
+        public string tblDeveloperID
         {
             get { return this._tblDeveloperID; }
             set { this._tblDeveloperID = value; }
         }
 
-        [Column(Storage = "GameName")]
+        [Column()]
         public string GameName
         {
             get { return this._gameName; }
@@ -42,14 +42,14 @@ namespace GameASU.Data
         }
 
 
-        [Column(Storage = "ScreenWidth")]
+        [Column()]
         public int ScreenWidth
         {
             get { return this._screenWidth; }
             set { this._screenWidth = value; }
         }
 
-        [Column(Storage = "ScreenHeight")]
+        [Column()]
         public int ScreenHeight
         {
             get { return this._screenHeight; }
@@ -58,5 +58,14 @@ namespace GameASU.Data
 
 #endregion
 
+        public Game() { }
+
+        public Game(string developerId, string gameName, int screenWidth, int screenHeight) 
+        {
+            tblDeveloperID = developerId;
+            GameName = gameName;
+            ScreenWidth = screenWidth;
+            ScreenHeight = screenHeight;
+        }
     }
 }

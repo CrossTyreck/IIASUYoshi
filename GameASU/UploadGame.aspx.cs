@@ -9,6 +9,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using GameASUContext = GameASU.Controller.GameASU;
+using System.Data.Linq;
+using GameASU.Data;
+using GameASU.Models;
+
 
 namespace GameASU
 {
@@ -31,6 +36,7 @@ namespace GameASU
                 {
                     try
                     {
+                        if(AddGame(txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text)))
                         GameUpload.PostedFile.SaveAs(Server.MapPath("~/Games/" + GameUpload.FileName));
                         lblFileStatus.Text = "File upload successful!";
                     }
@@ -45,6 +51,16 @@ namespace GameASU
 
         protected void UploadGame_Click(object sender, EventArgs e)
         {
+        }
+
+        private bool AddGame(string gameName, int screenWidth, int screenHeight)
+        {
+
+            GameASUContext dbGameASU = GameASUContext.Create();
+            Table<Game> Games = dbGameASU.GetTable<Game>();
+            Games.InsertOnSubmit(new Game(IdentityHelper.GetUserIdFromRequest(Request), gameName, screenWidth, screenHeight));
+          
+            return true;
         }
     }
 }

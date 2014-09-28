@@ -6,18 +6,27 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using GameASU.Data;
 
 namespace GameASU
 {
     public partial class ListGames : System.Web.UI.Page
     {
-
+        private GamesServer games = new GamesServer();
+        private string error = String.Empty;
         protected String GamePath { get; set; }
-
         protected String GameName { get; set; }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            games.VerifyGameListIntegrity(out error);
+
+            if (!error.Equals(String.Empty))
+            {
+                //send out an error
+            }
+
             GameName = "Space_Shoot.unity3d";
             
 

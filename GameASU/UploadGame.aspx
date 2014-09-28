@@ -3,7 +3,6 @@
 <asp:Content ID="DevBodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
     <div class="col-md-4">
-        <%--<h1></h1>--%>
         <asp:Panel ID="UploadPanel" runat="server">
             <asp:Label ID="lblGameName" for="txtGamename" runat="server" Text="Game Name:"></asp:Label>
             <asp:TextBox ID="txtGameName" CssClass="form-control" placeholder="Enter Game Name" runat="server" Width="144px"></asp:TextBox>

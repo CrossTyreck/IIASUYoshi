@@ -389,6 +389,7 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controller\GameASUDBGateWay.cs" />
     <Compile Include="Dashboard.Master.cs">
       <DependentUpon>Dashboard.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -397,6 +398,7 @@
       <DependentUpon>Dashboard.Master</DependentUpon>
     </Compile>
     <Compile Include="Data\Games.cs" />
+    <Compile Include="Data\GamesServer.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -495,7 +497,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controller\" />
     <Folder Include="Games\" />
   </ItemGroup>
   <PropertyGroup>

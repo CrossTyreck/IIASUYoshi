@@ -4,6 +4,7 @@ using System.Linq;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Web;
+using GameASUContext = GameASU.Model.DBGame;
 
 namespace GameASU.Data
 {
@@ -20,6 +21,7 @@ namespace GameASU.Data
         private string _gameName;
         private int _screenWidth;
         private int _screenHeight;
+        private GameASUContext dbGame;
 
         [Column(IsPrimaryKey = true)]
         public int Id
@@ -72,6 +74,16 @@ namespace GameASU.Data
 
         #endregion
 
+        #region Private Methods
+        public void InsertRecord()
+        {
+
+        }
+
+       
+
+       
+        #endregion
     }
 
     #endregion

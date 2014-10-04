@@ -5,17 +5,28 @@ using System.Data.Linq;
 using System.Web;
 using GameASU.Data;
 using System.IO;
-using GameASU.Controller;
-using GameASUContext = GameASU.Controller.GameASU;
+using GameASU.Model;
 
 namespace GameASU.Data
 {
+    #region GamesSever
     /// <summary>
     /// Access information about games loaded on the server.
     /// </summary>
     public class GamesServer
     {
-       
+
+        #region Variables
+
+        protected string[] Games { 
+            get{
+                return Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Games/"), "*.unity3d", SearchOption.TopDirectoryOnly);
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Verifies that the list of games in the database are also on the 
@@ -24,37 +35,32 @@ namespace GameASU.Data
         /// <returns>True if games list is synced. False if not.</returns>
         public bool VerifyGameListIntegrity(out string error)
         {
-            GameASUContext dbGameASU = GameASUContext.Create();
-
-            Table<Game> Games = dbGameASU.GetTable<Game>();
-            string[] files = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Games/"), "*.unity3d", SearchOption.TopDirectoryOnly);
             error = String.Empty;
             bool match = false;
 
-            IQueryable<Game> gamesQuery =
-                from game in Games
-                select game;
-
-            foreach (string file in files)
+            foreach (string gameFile in Games)
             {
                 match = false;
 
-                foreach (Game game in gamesQuery)
+                foreach (Game game in DBGame.SelectTableData())
                 {
-                    if (file.ToLower().Contains(game.GameName.ToLower()))
+                    if (gameFile.ToLower().Contains(game.GameName.ToLower()))
                     {
                         match = true;
                         break;
                     }
                 }
 
-                if(!match) error += file.Replace(HttpContext.Current.Server.MapPath("~/Games/"), "||") + " ";
+                if(!match) error += gameFile.Replace(HttpContext.Current.Server.MapPath("~/Games/"), "||") + " ";
             }
 
             return (error.Equals(String.Empty)) ? true : false;
         }
 
-    }
+        #endregion
 
+    }
+    
+    #endregion
 
 }

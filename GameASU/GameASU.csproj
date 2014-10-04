@@ -389,7 +389,8 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controller\GameASU.cs" />
+    <Compile Include="Model\DBGame.cs" />
+    <Compile Include="Controller\UploadGame.cs" />
     <Compile Include="Dashboard.Master.cs">
       <DependentUpon>Dashboard.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -398,7 +399,7 @@
       <DependentUpon>Dashboard.Master</DependentUpon>
     </Compile>
     <Compile Include="Data\Developer.cs" />
-    <Compile Include="Data\Games.cs" />
+    <Compile Include="Data\Game.cs" />
     <Compile Include="Data\GamesServer.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -499,6 +500,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Games\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

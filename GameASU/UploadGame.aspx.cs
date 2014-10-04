@@ -9,43 +9,26 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using GameASUContext = GameASU.Controller.GameASU;
 using System.Data.Linq;
 using GameASU.Data;
 using GameASU.Models;
+using GameASU.Model;
 
 
 namespace GameASU
 {
     public partial class UploadGame : System.Web.UI.Page
     {
+        DBGame gameDBContext = new DBGame();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
             {
-                Boolean fileOK = false;
-                String path = GameUpload.FileName;
-                if (GameUpload.HasFile)
+                if (VerifyFileExt())
                 {
-                    String fileExtension = System.IO.Path.GetExtension(GameUpload.FileName).ToLower();
-
-                    if (fileExtension == ".unity3d") { fileOK = true; }
+                    UploadGameToServer();
                 }
-
-                if (fileOK)
-                {
-                    try
-                    {
-                        if(AddGame(txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text)))
-                        GameUpload.PostedFile.SaveAs(Server.MapPath("~/Games/" + GameUpload.FileName));
-                        lblFileStatus.Text = "File upload successful!";
-                    }
-                    catch (Exception ex)
-                    {
-                        lblFileStatus.Text = ex.Message + ". File could not be uploaded.";
-                    }
-                }
-                else{lblFileStatus.Text = "Cannot accept files of this type.";}
             }
         }
 
@@ -53,11 +36,40 @@ namespace GameASU
         {
         }
 
+        private bool VerifyFileExt()
+        {
+            if (GameUpload.HasFile)
+            {
+                String fileExtension = System.IO.Path.GetExtension(GameUpload.FileName).ToLower();
+
+                if (fileExtension == ".unity3d") { return true; }
+            }
+
+            lblFileStatus.Text = "Cannot accept files of this type.";
+            return false;
+        }
+
+        private bool UploadGameToServer()
+        {
+            try
+            {
+                if (AddGame(txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text)))
+                    GameUpload.PostedFile.SaveAs(Server.MapPath("~/Games/" + GameUpload.FileName));
+                lblFileStatus.Text = "File upload successful!";
+                return true;
+            }
+            catch (Exception e)
+            {
+                lblFileStatus.Text = e.Message + ". File could not be uploaded.";
+            }
+
+            return false;
+
+        }
+
         private bool AddGame(string gameName, int screenWidth, int screenHeight)
         {
-
-            GameASUContext dbGameASU = GameASUContext.Create();
-            Table<Game> Games = dbGameASU.GetTable<Game>();
+            Table<Game> Games = gameDBContext.GetTable<Game>();
             Games.InsertOnSubmit(new Game(IdentityHelper.GetUserIdFromRequest(Request), gameName, screenWidth, screenHeight));
           
             return true;

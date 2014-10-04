@@ -7,12 +7,13 @@ using System.Web;
 
 namespace GameASU.Data
 {
-    
+
+    #region Class Game
     [Table(Name = "tblGames")]
     public class Game
     {
-        
-#region Variables
+
+        #region Variables
 
         private int _id;
         private string _tblDeveloperID;
@@ -56,16 +57,22 @@ namespace GameASU.Data
             set { this._screenHeight = value; }
         }
 
-#endregion
+        #endregion
 
+        #region Constructors
         public Game() { }
 
-        public Game(string developerId, string gameName, int screenWidth, int screenHeight) 
+        public Game(string developerId, string gameName, int screenWidth, int screenHeight)
         {
             tblDeveloperID = developerId;
             GameName = gameName;
             ScreenWidth = screenWidth;
             ScreenHeight = screenHeight;
         }
+
+        #endregion
+
     }
+
+    #endregion
 }

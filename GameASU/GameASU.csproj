@@ -397,6 +397,7 @@
     <Compile Include="Dashboard.Master.designer.cs">
       <DependentUpon>Dashboard.Master</DependentUpon>
     </Compile>
+    <Compile Include="Data\Developer.cs" />
     <Compile Include="Data\Games.cs" />
     <Compile Include="Data\GamesServer.cs" />
     <Compile Include="Default.aspx.cs">

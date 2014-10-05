@@ -31,7 +31,8 @@ namespace GameASU.Data
 
         #region Constructor
 
-        public GamesServer() { 
+        public GamesServer() 
+        { 
             gameServerPath = new GameServerPath(); 
             uploadGame = new GameUploader();
         }
@@ -43,6 +44,9 @@ namespace GameASU.Data
 
         public bool UploadGameToServer(string fName, HttpPostedFile hpf)
         {
+            //have verification in here if the file is already on the server
+
+
             return uploadGame.Upload(fName, hpf);
         }
 

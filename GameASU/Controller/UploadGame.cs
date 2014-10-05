@@ -1,26 +1,23 @@
-﻿using System;
+﻿using GameASU.Controller;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
 namespace GameASU.Model
 {
-    public class UploadGame
+    public class GameUploader : IServerFileUpload
     {
-        private string _filePath;
-
-        public string FilePath
+        private GameServerPath gameServerPath = new GameServerPath();
+        public bool Upload(string fileName, HttpPostedFile obj)
         {
-            get { return this._filePath; }
-            set { this._filePath = value; }
-        }
-
-        public UploadGame() { }
-
-        public UploadGame(string filePath)
-        {
-
-
+            try
+            {
+                obj.SaveAs(gameServerPath.GetPath(GameServerPath.fileType.Game, fileName));
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

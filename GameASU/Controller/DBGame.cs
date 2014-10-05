@@ -9,14 +9,13 @@ namespace GameASU.Controller
 {
     public class DBGame : DataContext
     {
-        private Table<Game> GameTable;
-        private Game game;
+        private Table<Game> GameTable { get { return this.GetTable<Game>(); } }
+        private Game Game;
 
         public DBGame()
             : base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString)
         {
             this.Connection.Open();
-            GameTable = this.Create().GetTable<Game>();
         }
 
         public DBGame Create()
@@ -33,20 +32,24 @@ namespace GameASU.Controller
             return gamesQuery;
         }
 
-        public bool InsertGame(string developerID, string gameName, int screenWidth, int screenHeight)
+        public bool InsertGame(int developerID, string gameName, int screenWidth, int screenHeight)
         {
-            game = new Game(developerID, gameName, screenWidth, screenHeight);
+            Game = new Game(developerID, gameName, screenWidth, screenHeight);
 
             try
             {
-                GameTable = this.GetTable<Game>();
-                GameTable.InsertOnSubmit(game);
+                GameTable.InsertOnSubmit(Game);
+                SubmitChanges(ConflictMode.FailOnFirstConflict);
 
                 return true;
             }
             catch { return false; }
         }
 
+        public override void SubmitChanges(ConflictMode failureMode)
+        {
+            base.SubmitChanges(failureMode);
+        }
     }
 
 }

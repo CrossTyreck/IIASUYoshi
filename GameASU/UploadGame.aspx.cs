@@ -19,9 +19,10 @@ using System.Drawing;
 
 namespace GameASU
 {
-    public partial class GameUploader : System.Web.UI.Page
+    public partial class UploadGame : System.Web.UI.Page
     {
         DBGame GameDBConn = new DBGame();
+        DBDeveloper DevDBConn = new DBDeveloper();
         GamesServer GameServer = new GamesServer();
 
         protected string UserID { get; set; }
@@ -37,14 +38,9 @@ namespace GameASU
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                //initialize variables (YEAH RIGHT!!!!!)
-            }
+            if (!IsPostBack) { }
             else
-            {
-                UploadGameToServer();
-            }
+            { if (GameUpload.HasFile && VerifyFileExt()) { AddGame(); } }
         }
 
         protected void UploadGame_Click(object sender, EventArgs e)
@@ -64,34 +60,29 @@ namespace GameASU
             return false;
         }
 
-        private void UploadGameToServer()
+        private void AddGame()
         {
-            if (GameUpload.HasFile && VerifyFileExt())
+            try
             {
-                try
+                if (!GameServer.UploadGameToServer(GameUpload.FileName, GameUpload.PostedFile)
+                || !GameDBConn.InsertGame(DevDBConn.GetDevId(User.Identity.GetUserId()), txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text)))
                 {
-                    AddGame(txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text));
-                    if (GameServer.UploadGameToServer(GameUpload.FileName, GameUpload.PostedFile))
-
-                        SetlblFileStatus(Status.UploadSuccess);
-
+                    SetlblFileStatus(Status.UploadFail);
                 }
-                catch (Exception e)
-                {
-                    SetlblFileStatus(e.Message, Status.UploadFail);
-                }
+
+                SetlblFileStatus(Status.UploadSuccess);
             }
+            catch (Exception e)
+            {
+                SetlblFileStatus(e.Message, Status.UploadFail);
+            }
+
 
         }
 
         private void AddGame(string gameName, int screenWidth, int screenHeight)
         {
-            if(!GameDBConn.InsertGame(User.Identity.GetUserId(), gameName, screenWidth, screenHeight))
-            {
-                SetlblFileStatus(Status.UploadFail);
-            }
 
-            SetlblFileStatus(Status.UploadSuccess);
 
         }
 

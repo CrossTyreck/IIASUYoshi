@@ -15,8 +15,8 @@ namespace GameASU.Data
 
         #region Variables
 
-        [Column(IsPrimaryKey = true)]
-        public string DeveloperID{ get; set; }
+        [Column(IsPrimaryKey = true, AutoSync=AutoSync.OnInsert, IsDbGenerated = true)]
+        public int Id{ get; set; }
        
         [Column()]
         public string AspNetUsersID{ get; set; }
@@ -33,9 +33,8 @@ namespace GameASU.Data
 
         public Developer() { }
 
-        public Developer(string aspNetUserID, string developerID)
+        public Developer(string aspNetUserID)
         {
-            DeveloperID = developerID;
             DeveloperTag = ""; //Code for this later to add "Entertainment" value
             Genre = ""; //Code for this later to let players see what genre developers are focused in
             AspNetUsersID = aspNetUserID;

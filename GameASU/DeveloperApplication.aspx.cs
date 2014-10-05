@@ -8,19 +8,27 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GameASU.Models;
 using System.Text;
+using GameASU.Controller;
 
 namespace GameASU
 {
     public partial class DeveloperApplication : System.Web.UI.Page
     {
+        #region Variables
 
+        private DBDeveloper DeveloperDBCon = new DBDeveloper();
+        private string UserID = "";
+        private string UserName = "";
 
+        #endregion
 
         protected void Page_Load()
         {
-            
-          
+            UserID = Context.User.Identity.GetUserId();
+            UserName = Context.User.Identity.GetUserName();
         }
+
+        #region Protected Methods
 
         protected void CheckDevRole_Click(object sender, EventArgs e)
         {
@@ -31,24 +39,29 @@ namespace GameASU
             }
             else
             {
-                if(AddDeveloperRole())
+                if (AddDeveloperRole() && AddDeveloperToDB())
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + User.Identity.GetUserName() + " successfully added to Developer role.')", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + UserName + " is now a Developer!')", true);
+                    IdentityHelper.RedirectToReturnUrl("~/Default.aspx", Response);
                 }
 
             }
         }
 
-        private bool AddDeveloperRole() 
+        #endregion
+
+        #region Private Methods
+
+        private bool AddDeveloperRole()
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-          
+
             RoleGroup role = new RoleGroup();
 
             try
             {
-                IdentityResult result = manager.AddToRole(Context.User.Identity.GetUserId(), "Developer");
-               
+                IdentityResult result = manager.AddToRole(UserID, "Developer");
+
             }
             catch (InvalidOperationException eOp)
             {
@@ -59,6 +72,15 @@ namespace GameASU
             return true;
         }
 
+        private bool AddDeveloperToDB()
+        {
+            using (DeveloperDBCon)
+            {
+                return DeveloperDBCon.InsertDeveloper(UserID);
+            }
+        }
+
+        #endregion
 
     }
 }

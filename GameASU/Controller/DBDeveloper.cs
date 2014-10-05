@@ -11,7 +11,7 @@ namespace GameASU.Controller
     {
 
         private Table<Developer> DevTable { get { return this.GetTable<Developer>(); } }
-        private Developer Dev = new Developer();
+        private Developer Dev;
 
         public DBDeveloper()
             : base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString)
@@ -33,13 +33,24 @@ namespace GameASU.Controller
             return devQuery;
         }
 
-        public bool InsertDeveloper(string aspNetUserID, string developerID)
+        public IQueryable<Developer> GetDevId(string aspNetUserId)
         {
-            Dev = new Developer(aspNetUserID, developerID);
+            IQueryable<Developer> devQuery =
+              from dev in DevTable
+              where dev.AspNetUsersID == aspNetUserId
+              select dev;
+
+            return devQuery;
+        }
+
+        public bool InsertDeveloper(string aspNetUserID)
+        {
+            Dev = new Developer(aspNetUserID);
 
             try
             {
                 DevTable.InsertOnSubmit(Dev);
+                SubmitChanges(ConflictMode.FailOnFirstConflict);
 
                 return true;
             }

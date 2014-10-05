@@ -15,11 +15,11 @@ namespace GameASU.Data
     {
         #region Variables
 
-        [Column(IsPrimaryKey = true)]
+        [Column(IsPrimaryKey = true, AutoSync = AutoSync.OnInsert, IsDbGenerated = true)]
         public int Id { get; set; }
 
         [Column()]
-        public string tblDeveloperID { get; set; }
+        public int tblDeveloperID { get; set; }
 
         [Column()]
         public string GameName { get; set; }
@@ -35,7 +35,7 @@ namespace GameASU.Data
         #region Constructors
         public Game() { }
 
-        public Game(string developerId, string gameName, int screenWidth, int screenHeight)
+        public Game(int developerId, string gameName, int screenWidth, int screenHeight)
         {
             tblDeveloperID = developerId;
             GameName = gameName;

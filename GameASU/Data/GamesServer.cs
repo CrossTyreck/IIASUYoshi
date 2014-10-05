@@ -21,6 +21,7 @@ namespace GameASU.Data
 
         protected GameServerPath GameServerPath = new GameServerPath();
         protected GameFileUpload GameUploader = new GameFileUpload();
+        protected DBGame GameDBContext = new DBGame();
 
         protected string[] Games
         {
@@ -46,7 +47,6 @@ namespace GameASU.Data
            
         }
 
-
         /// <summary>
         /// Verifies that the list of games in the database are also on the 
         /// server.
@@ -61,7 +61,7 @@ namespace GameASU.Data
             {
                 match = false;
 
-                foreach (Game game in DBGame.SelectTableData())
+                foreach (Game game in GameDBContext.SelectTableData())
                 {
                     if (gameFile.ToLower().Contains(game.GameName.ToLower()))
                     {

@@ -16,44 +16,35 @@ namespace GameASU.Controller
             : base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString)
         {
             this.Connection.Open();
+            GameTable = this.Create().GetTable<Game>();
         }
 
-        public static DBGame Create()
+        public DBGame Create()
         {
             return new DBGame();
         }
 
-        public static IQueryable<Game> SelectTableData()
+        public IQueryable<Game> SelectTableData()
         {
-            Table<Game> tblGames = DBGame.Create().GetTable();
-
             IQueryable<Game> gamesQuery =
-              from game in tblGames
+              from game in GameTable
               select game;
 
             return gamesQuery;
         }
 
-        private Table<Game> GetTable()
-        {
-            return GetTable<Game>();
-        }
-
         public bool InsertGame(string developerID, string gameName, int screenWidth, int screenHeight)
         {
             game = new Game(developerID, gameName, screenWidth, screenHeight);
-            
+
             try
             {
                 GameTable = this.GetTable<Game>();
                 GameTable.InsertOnSubmit(game);
 
                 return true;
-
             }
-
             catch { return false; }
-            
         }
 
     }

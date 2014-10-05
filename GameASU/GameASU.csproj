@@ -389,6 +389,7 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controller\DBDeveloper.cs" />
     <Compile Include="Controller\IServerFileUpload.cs" />
     <Compile Include="Controller\DBGame.cs" />
     <Compile Include="Controller\GameFileUpload.cs" />

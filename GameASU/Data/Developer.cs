@@ -30,6 +30,7 @@ namespace GameASU.Data
         #endregion
 
         #region Constructors
+
         public Developer() { }
 
         public Developer(string aspNetUserID, string developerID)

@@ -10,14 +10,13 @@ namespace GameASU.Controller
     public class DBDeveloper : DataContext
     {
 
-        private Table<Developer> DevTable = new Table<Developer>();
+        private Table<Developer> DevTable { get { return this.GetTable<Developer>(); } }
         private Developer Dev = new Developer();
 
         public DBDeveloper()
             : base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString)
         {
             this.Connection.Open();
-            DevTable = this.Create().GetTable<Developer>();
         }
 
         public DBDeveloper Create()
@@ -34,18 +33,22 @@ namespace GameASU.Controller
             return devQuery;
         }
 
-        public bool InsertGame(string aspNetUserID, string developerID)
+        public bool InsertDeveloper(string aspNetUserID, string developerID)
         {
             Dev = new Developer(aspNetUserID, developerID);
 
             try
             {
-                DevTable = this.GetTable<Developer>();
                 DevTable.InsertOnSubmit(Dev);
 
                 return true;
             }
             catch { return false; }
+        }
+
+        public override void SubmitChanges(ConflictMode failureMode)
+        {
+            base.SubmitChanges(failureMode);
         }
 
     }

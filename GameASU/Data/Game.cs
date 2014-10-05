@@ -4,7 +4,7 @@ using System.Linq;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Web;
-using GameASUContext = GameASU.Model.DBGame;
+using GameASUContext = GameASU.Controller.DBGame;
 
 namespace GameASU.Data
 {
@@ -13,7 +13,6 @@ namespace GameASU.Data
     [Table(Name = "tblGames")]
     public class Game
     {
-
         #region Variables
 
         private int _id;
@@ -21,7 +20,6 @@ namespace GameASU.Data
         private string _gameName;
         private int _screenWidth;
         private int _screenHeight;
-        private GameASUContext dbGame;
 
         [Column(IsPrimaryKey = true)]
         public int Id
@@ -79,9 +77,6 @@ namespace GameASU.Data
         {
 
         }
-
-       
-
        
         #endregion
     }

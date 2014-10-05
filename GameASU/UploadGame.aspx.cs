@@ -2,6 +2,7 @@
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Configuration;
 using System.Collections.Generic;
@@ -12,23 +13,37 @@ using System.Web.UI.WebControls;
 using System.Data.Linq;
 using GameASU.Data;
 using GameASU.Models;
-using GameASU.Model;
+using GameASU.Controller;
+using System.Drawing;
 
 
 namespace GameASU
 {
     public partial class UploadGame : System.Web.UI.Page
     {
-        DBGame gameDBContext = new DBGame();
+        DBGame gameDBConn = new DBGame();
+        GamesServer gameServer = new GamesServer();
+
+        protected string UserID { get; set; }
+
+        private enum Status
+        {
+            UploadSuccess,
+            UploadFail,
+            GoodFileExt,
+            BadFileExt
+        };
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            if (!IsPostBack)
             {
-                if (VerifyFileExt())
-                {
-                    UploadGameToServer();
-                }
+                //initialize variables (YEAH RIGHT!!!!!)
+            }
+            else
+            {
+                UploadGameToServer();
             }
         }
 
@@ -38,41 +53,93 @@ namespace GameASU
 
         private bool VerifyFileExt()
         {
-            if (GameUpload.HasFile)
+            if (System.IO.Path.GetExtension(GameUpload.FileName).ToLower() == ".unity3d")
             {
-                String fileExtension = System.IO.Path.GetExtension(GameUpload.FileName).ToLower();
-
-                if (fileExtension == ".unity3d") { return true; }
-            }
-
-            lblFileStatus.Text = "Cannot accept files of this type.";
-            return false;
-        }
-
-        private bool UploadGameToServer()
-        {
-            try
-            {
-                if (AddGame(txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text)))
-                    GameUpload.PostedFile.SaveAs(Server.MapPath("~/Games/" + GameUpload.FileName));
-                lblFileStatus.Text = "File upload successful!";
+                SetlblFileStatus(Status.GoodFileExt);
                 return true;
             }
-            catch (Exception e)
-            {
-                lblFileStatus.Text = e.Message + ". File could not be uploaded.";
-            }
+
+            SetlblFileStatus(Status.BadFileExt);
 
             return false;
+        }
+
+        private void UploadGameToServer()
+        {
+            if (GameUpload.HasFile && VerifyFileExt())
+            {
+                try
+                {
+                    AddGame(txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text));
+                    if (gameServer.UploadGameToServer(GameUpload.FileName, GameUpload.PostedFile))
+
+                        SetlblFileStatus(Status.UploadSuccess);
+
+                }
+                catch (Exception e)
+                {
+                    SetlblFileStatus(e.Message, Status.UploadFail);
+                }
+            }
 
         }
 
-        private bool AddGame(string gameName, int screenWidth, int screenHeight)
+        private void AddGame(string gameName, int screenWidth, int screenHeight)
         {
-            Table<Game> Games = gameDBContext.GetTable<Game>();
-            Games.InsertOnSubmit(new Game(IdentityHelper.GetUserIdFromRequest(Request), gameName, screenWidth, screenHeight));
-          
-            return true;
+            string userId = User.Identity.GetUserId();
+            if(!gameDBConn.InsertGame(User.Identity.GetUserId(), gameName, screenWidth, screenHeight))
+            {
+                SetlblFileStatus(Status.UploadFail);
+            }
+
+            SetlblFileStatus(Status.UploadSuccess);
+
+        }
+
+        private string GetMessage(Status status)
+        {
+            switch (status)
+            {
+                case Status.UploadSuccess:
+                    return "File upload successful!";
+                case Status.UploadFail:
+                    return "File could not be uploaded.";
+                case Status.GoodFileExt:
+                    return "File extension passed.";
+                case Status.BadFileExt:
+                    return "Cannot accept files of this type.";
+                default:
+                    return "Error retriving status.";
+            }
+        }
+
+        private Color GetColor(Status status)
+        {
+            switch (status)
+            {
+                case Status.UploadSuccess:
+                    return Color.Green;
+                case Status.UploadFail:
+                    return Color.Red;
+                case Status.GoodFileExt:
+                    return Color.Green;
+                case Status.BadFileExt:
+                    return Color.Red;
+                default:
+                    return Color.Yellow;
+            }
+        }
+
+        private void SetlblFileStatus(Status status)
+        {
+            lblFileStatus.Text = GetMessage(status);
+            lblFileStatus.BackColor = GetColor(status);
+        }
+
+        private void SetlblFileStatus(string error, Status status)
+        {
+            lblFileStatus.Text = error + " " + GetMessage(status);
+            lblFileStatus.BackColor = GetColor(status);
         }
     }
 }

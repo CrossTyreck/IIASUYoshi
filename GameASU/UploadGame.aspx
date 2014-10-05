@@ -19,6 +19,5 @@
             <br />
             <asp:Button ID="SubmitGame" runat="server" CssClass="btn btn-primary btn-lg" Text="Upload" />
         </asp:Panel>
-
     </div>
 </asp:Content>

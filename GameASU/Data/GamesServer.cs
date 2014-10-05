@@ -5,6 +5,7 @@ using System.Data.Linq;
 using System.Web;
 using GameASU.Data;
 using System.IO;
+using GameASU.Controller;
 using GameASU.Model;
 
 namespace GameASU.Data
@@ -18,15 +19,33 @@ namespace GameASU.Data
 
         #region Variables
 
-        protected string[] Games { 
-            get{
-                return Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Games/"), "*.unity3d", SearchOption.TopDirectoryOnly);
-            }
+        protected GameServerPath gameServerPath;
+        private GameUploader uploadGame;
+
+        protected string[] Games
+        {
+            get { return Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Games/"), "*.unity3d", SearchOption.TopDirectoryOnly); }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        public GamesServer() { 
+            gameServerPath = new GameServerPath(); 
+            uploadGame = new GameUploader();
         }
 
         #endregion
 
         #region Public Methods
+
+
+        public bool UploadGameToServer(string fName, HttpPostedFile hpf)
+        {
+            return uploadGame.Upload(fName, hpf);
+        }
+
 
         /// <summary>
         /// Verifies that the list of games in the database are also on the 
@@ -51,7 +70,7 @@ namespace GameASU.Data
                     }
                 }
 
-                if(!match) error += gameFile.Replace(HttpContext.Current.Server.MapPath("~/Games/"), "||") + " ";
+                if (!match) error += gameFile.Replace(gameServerPath.GamesFilePath, "||") + " ";
             }
 
             return (error.Equals(String.Empty)) ? true : false;
@@ -60,7 +79,7 @@ namespace GameASU.Data
         #endregion
 
     }
-    
+
     #endregion
 
 }

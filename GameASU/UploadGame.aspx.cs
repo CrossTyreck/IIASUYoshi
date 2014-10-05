@@ -86,7 +86,6 @@ namespace GameASU
 
         private void AddGame(string gameName, int screenWidth, int screenHeight)
         {
-            string userId = User.Identity.GetUserId();
             if(!gameDBConn.InsertGame(User.Identity.GetUserId(), gameName, screenWidth, screenHeight))
             {
                 SetlblFileStatus(Status.UploadFail);

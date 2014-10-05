@@ -7,14 +7,15 @@ using System.Web;
 
 namespace GameASU.Model
 {
-    public class GameUploader : IServerFileUpload
+    public class GameFileUpload : IServerFileUpload
     {
-        private GameServerPath gameServerPath = new GameServerPath();
+        private GameServerPath GameServerPath = new GameServerPath();
+
         public bool Upload(string fileName, HttpPostedFile obj)
         {
             try
             {
-                obj.SaveAs(gameServerPath.GetPath(GameServerPath.fileType.Game, fileName));
+                obj.SaveAs(GameServerPath.GetPath(GameServerPath.fileType.Game, fileName));
                 return true;
             }
             catch { return false; }

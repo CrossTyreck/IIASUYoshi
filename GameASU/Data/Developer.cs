@@ -15,39 +15,17 @@ namespace GameASU.Data
 
         #region Variables
 
-        private string _Id;
-        private string _AspNetUsersID;
-        private string _developerTag;
-        private string _genre;
-
         [Column(IsPrimaryKey = true)]
-        public string DeveloperID
-        {
-            get { return this._Id; }
-            set { this._Id = value; }
-        }
+        public string DeveloperID{ get; set; }
+       
+        [Column()]
+        public string AspNetUsersID{ get; set; }
+      
+        [Column()]
+        public string DeveloperTag { get; set; }
 
         [Column()]
-        public string AspNetUsersID
-        {
-            get { return this._AspNetUsersID; }
-            set { this._AspNetUsersID = value; }
-        }
-
-        [Column()]
-        public string DeveloperTag
-        {
-            get { return this._developerTag; }
-            set { this._developerTag = value; }
-        }
-
-
-        [Column()]
-        public string Genre
-        {
-            get { return this._genre; }
-            set { this._genre = value; }
-        }
+        public string Genre { get; set; }
 
         #endregion
 
@@ -63,6 +41,15 @@ namespace GameASU.Data
         }
 
         #endregion
+
+        #region Private Methods
+        public void InsertRecord()
+        {
+
+        }
+
+        #endregion
+
     }
 
     #endregion

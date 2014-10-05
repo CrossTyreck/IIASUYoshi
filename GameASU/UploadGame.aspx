@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Upload a Unity Web Player Game" Language="C#" MasterPageFile="~/Dashboard.Master" AutoEventWireup="true" CodeBehind="UploadGame.aspx.cs" Inherits="GameASU.UploadGame" %>
+﻿<%@ Page Title="Upload a Unity Web Player Game" Language="C#" MasterPageFile="~/Dashboard.Master" AutoEventWireup="true" CodeBehind="UploadGame.aspx.cs" Inherits="GameASU.GameUploader" %>
 
 <asp:Content ID="DevBodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>

@@ -10,7 +10,7 @@
 namespace GameASU {
     
     
-    public partial class UploadGame {
+    public partial class GameUploader {
         
         /// <summary>
         /// UploadPanel control.

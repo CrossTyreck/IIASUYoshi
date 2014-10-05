@@ -19,10 +19,10 @@ using System.Drawing;
 
 namespace GameASU
 {
-    public partial class UploadGame : System.Web.UI.Page
+    public partial class GameUploader : System.Web.UI.Page
     {
-        DBGame gameDBConn = new DBGame();
-        GamesServer gameServer = new GamesServer();
+        DBGame GameDBConn = new DBGame();
+        GamesServer GameServer = new GamesServer();
 
         protected string UserID { get; set; }
 
@@ -71,7 +71,7 @@ namespace GameASU
                 try
                 {
                     AddGame(txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text));
-                    if (gameServer.UploadGameToServer(GameUpload.FileName, GameUpload.PostedFile))
+                    if (GameServer.UploadGameToServer(GameUpload.FileName, GameUpload.PostedFile))
 
                         SetlblFileStatus(Status.UploadSuccess);
 
@@ -86,7 +86,7 @@ namespace GameASU
 
         private void AddGame(string gameName, int screenWidth, int screenHeight)
         {
-            if(!gameDBConn.InsertGame(User.Identity.GetUserId(), gameName, screenWidth, screenHeight))
+            if(!GameDBConn.InsertGame(User.Identity.GetUserId(), gameName, screenWidth, screenHeight))
             {
                 SetlblFileStatus(Status.UploadFail);
             }

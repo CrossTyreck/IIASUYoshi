@@ -15,47 +15,20 @@ namespace GameASU.Data
     {
         #region Variables
 
-        private int _id;
-        private string _tblDeveloperID;
-        private string _gameName;
-        private int _screenWidth;
-        private int _screenHeight;
-
         [Column(IsPrimaryKey = true)]
-        public int Id
-        {
-            get { return this._id; }
-            set { this._id = value; }
-        }
+        public int Id { get; set; }
 
         [Column()]
-        public string tblDeveloperID
-        {
-            get { return this._tblDeveloperID; }
-            set { this._tblDeveloperID = value; }
-        }
+        public string tblDeveloperID { get; set; }
 
         [Column()]
-        public string GameName
-        {
-            get { return this._gameName; }
-            set { this._gameName = value; }
-        }
-
+        public string GameName { get; set; }
 
         [Column()]
-        public int ScreenWidth
-        {
-            get { return this._screenWidth; }
-            set { this._screenWidth = value; }
-        }
+        public int ScreenWidth { get; set; }
 
         [Column()]
-        public int ScreenHeight
-        {
-            get { return this._screenHeight; }
-            set { this._screenHeight = value; }
-        }
+        public int ScreenHeight { get; set; }
 
         #endregion
 
@@ -77,7 +50,7 @@ namespace GameASU.Data
         {
 
         }
-       
+
         #endregion
     }
 

@@ -19,8 +19,8 @@ namespace GameASU.Data
 
         #region Variables
 
-        protected GameServerPath gameServerPath;
-        private GameUploader uploadGame;
+        protected GameServerPath GameServerPath = new GameServerPath();
+        protected GameFileUpload GameUploader = new GameFileUpload();
 
         protected string[] Games
         {
@@ -31,11 +31,7 @@ namespace GameASU.Data
 
         #region Constructor
 
-        public GamesServer() 
-        { 
-            gameServerPath = new GameServerPath(); 
-            uploadGame = new GameUploader();
-        }
+        public GamesServer() { }
 
         #endregion
 
@@ -46,8 +42,8 @@ namespace GameASU.Data
         {
             //have verification in here if the file is already on the server
 
-
-            return uploadGame.Upload(fName, hpf);
+            return GameUploader.Upload(fName, hpf);
+           
         }
 
 
@@ -74,7 +70,7 @@ namespace GameASU.Data
                     }
                 }
 
-                if (!match) error += gameFile.Replace(gameServerPath.GamesFilePath, "||") + " ";
+                if (!match) error += gameFile.Replace(GameServerPath.GamesFilePath, "||") + " ";
             }
 
             return (error.Equals(String.Empty)) ? true : false;

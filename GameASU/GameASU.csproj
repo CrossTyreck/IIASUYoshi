@@ -391,7 +391,7 @@
     </Compile>
     <Compile Include="Controller\IServerFileUpload.cs" />
     <Compile Include="Controller\DBGame.cs" />
-    <Compile Include="Controller\UploadGame.cs" />
+    <Compile Include="Controller\GameFileUpload.cs" />
     <Compile Include="Dashboard.Master.cs">
       <DependentUpon>Dashboard.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

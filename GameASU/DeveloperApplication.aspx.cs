@@ -44,6 +44,7 @@ namespace GameASU
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + UserName + " is now a Developer!')", true);
                     IdentityHelper.RedirectToReturnUrl("~/Default.aspx", Response);
+                    Msg.Text = "You are now considered a Game Developer!";
                 }
 
             }
@@ -55,24 +56,26 @@ namespace GameASU
 
         private bool AddDeveloperRole()
         {
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var UserManager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            RoleGroup role = new RoleGroup();
-
-            try
+            if (!ValidateUserRoles(UserManager))
             {
-                IdentityResult result = manager.AddToRole(UserID, "Developer");
-                
-                
 
-            }
-            catch (InvalidOperationException eOp)
-            {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + eOp.Message + " Please contact site Administrator.')", true);
-                return false;
+                try
+                {
+                    IdentityResult result = UserManager.AddToRole(UserID, "Developer");
+                }
+                catch (InvalidOperationException eOp)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ALERT", "alert('" + eOp.Message + " Please contact site Administrator.')", true);
+                    return false;
+                }
+                return true;
             }
 
-            return true;
+            Msg.Text = "There seems to be a problem. Are you sure your not already a Developer?";
+
+            return false;
         }
 
         private bool AddDeveloperToDB()
@@ -81,6 +84,11 @@ namespace GameASU
             {
                 return DeveloperDBCon.InsertDeveloper(UserID);
             }
+        }
+
+        private bool ValidateUserRoles(ApplicationUserManager userManager)
+        {
+            return userManager.IsInRole(UserID, "Developer");
         }
 
         #endregion

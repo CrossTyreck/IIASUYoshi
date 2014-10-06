@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Owin;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -69,19 +71,34 @@ namespace GameASU
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //HyperLink DashboardLink = (HyperLink)this.LoginViewMaster.FindControl("DashboardLink");
-
-            //if (HttpContext.Current.User.IsInRole("Developer"))
-            //{
-            //    DashboardLink.NavigateUrl = "~/DeveloperDashboard.aspx";
-            //    DashboardLink.Text = "Developer Corner";
-            //}
+           
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut();
         }
+
+        //private bool IsPlayer()
+        //{
+        //    var UserManager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+        //    return UserManager.IsInRole(Context.User.Identity.GetUserId(), "Player");
+        //}
+
+        //private bool IsDeveloper()
+        //{
+        //    var UserManager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+        //    return UserManager.IsInRole(Context.User.Identity.GetUserId(), "Developer");
+        //}
+
+        //private bool IsAdmin()
+        //{
+        //    var UserManager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+        //    return UserManager.IsInRole(Context.User.Identity.GetUserId(), "Admin");
+        //}
     }
 
 }

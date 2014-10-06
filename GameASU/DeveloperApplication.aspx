@@ -21,6 +21,7 @@
                                 <div class="col-md-offset-2 col-md-6">
                                     <asp:Button runat="server" Text="Submit Application"  OnClick="CheckDevRole_Click" CssClass="btn btn-default" />
                                 </div>
+                                <asp:Label ID="Msg" runat="server" Text=""></asp:Label>
                             </div>
                         </div>
                     </div>

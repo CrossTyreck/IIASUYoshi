@@ -73,6 +73,18 @@
                         </LoggedInTemplate>
                         <RoleGroups>
                             <%--Enable this if the developer dashboard will be accessed from the main screen--%>
+                            <asp:RoleGroup Roles="Admin">
+                                <ContentTemplate>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                        <li>
+                                            <asp:HyperLink runat="server" NavigateUrl="~/RoleMembership.aspx" title="Manager User Roles">Manage User Roles</asp:HyperLink></li>
+                                        <li>
+                                            <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                        </li>
+                                    </ul>
+                                </ContentTemplate>
+                            </asp:RoleGroup>
                             <asp:RoleGroup Roles="Developer">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav navbar-right">

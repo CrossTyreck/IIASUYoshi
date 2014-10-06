@@ -32,9 +32,9 @@ namespace GameASU.Controller
             return gamesQuery;
         }
 
-        public bool InsertGame(int developerID, string gameName, int screenWidth, int screenHeight)
+        public bool InsertGame(int developerID, string gameName, int screenWidth, int screenHeight, string gameNameOnServer)
         {
-            Game = new Game(developerID, gameName, screenWidth, screenHeight);
+            Game = new Game(developerID, gameName, screenWidth, screenHeight, gameNameOnServer);
 
             try
             {

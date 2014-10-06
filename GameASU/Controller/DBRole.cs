@@ -10,7 +10,6 @@ namespace GameASU.Controller
     public class DBRole : DataContext
     {
         private Table<Role> RoleTable { get { return this.GetTable<Role>(); } }
-        private Role Role;
 
         public DBRole()
             : base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString)

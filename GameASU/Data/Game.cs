@@ -30,17 +30,21 @@ namespace GameASU.Data
         [Column()]
         public int ScreenHeight { get; set; }
 
+        [Column()]
+        public string GameNameOnServer { get; set; }
+
         #endregion
 
         #region Constructors
         public Game() { }
 
-        public Game(int developerId, string gameName, int screenWidth, int screenHeight)
+        public Game(int developerId, string gameName, int screenWidth, int screenHeight, string gameNameOnServer)
         {
             tblDeveloperID = developerId;
             GameName = gameName;
             ScreenWidth = screenWidth;
             ScreenHeight = screenHeight;
+            GameNameOnServer = gameNameOnServer;
         }
 
         #endregion

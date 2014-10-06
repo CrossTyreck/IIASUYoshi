@@ -65,7 +65,7 @@ namespace GameASU
             try
             {
                 if (!GameServer.UploadGameToServer(GameUpload.FileName, GameUpload.PostedFile)
-                || !GameDBConn.InsertGame(DevDBConn.GetDevId(User.Identity.GetUserId()), txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text)))
+                || !GameDBConn.InsertGame(DevDBConn.GetDevID(Context.User.Identity.GetUserId()), txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text)))
                 {
                     SetlblFileStatus(Status.UploadFail);
                 }

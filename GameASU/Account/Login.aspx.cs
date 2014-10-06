@@ -32,9 +32,11 @@ namespace GameASU.Account
                 // Validate the user password
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 ApplicationUser user = manager.Find(Email.Text, Password.Text);
+                
 
                 if (user != null)
                 {
+                    //if()
                     IdentityHelper.SignIn(manager, user, RememberMe.Checked);
                     IdentityHelper.RedirectToReturnUrl("~/Default.aspx", Response);
                 }

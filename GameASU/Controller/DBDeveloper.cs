@@ -33,7 +33,7 @@ namespace GameASU.Controller
             return devQuery;
         }
 
-        public IQueryable<Developer> GetDevId(string aspNetUserId)
+        public IQueryable<Developer> SelectDevID(string aspNetUserId)
         {
             IQueryable<Developer> devQuery =
               from dev in DevTable
@@ -41,6 +41,13 @@ namespace GameASU.Controller
               select dev;
 
             return devQuery;
+        }
+
+        public int GetDevID(string aspNetUserID)
+        {
+            return this.DevTable.Where(i => i.AspNetUsersID == aspNetUserID)
+                              .Select(i => i.Id)
+                              .First();;
         }
 
         public bool InsertDeveloper(string aspNetUserID)

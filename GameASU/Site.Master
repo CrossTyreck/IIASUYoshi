@@ -54,7 +54,7 @@
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                    <asp:LoginView ID="LoginViewMaster" runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/Account/Register">Register</a></li>
@@ -65,6 +65,8 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
                                 <li>
+                                    <asp:HyperLink ID="DashboardLink" runat="server" NavigateUrl="~/PlayerDashboard.aspx" title="View Dashboard" Text="Play Game" /></li>
+                                <li>
                                     <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                 </li>
                             </ul>
@@ -74,7 +76,7 @@
                             <asp:RoleGroup Roles="Developer">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav navbar-right">
-                                        <li><a runat="server" href="~/Account/Manage" title="Manage your account"> Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                        <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
                                         <li>
                                             <asp:HyperLink runat="server" NavigateUrl="~/DeveloperDashboard.aspx" title="View Dashboard">Developers Corner</asp:HyperLink></li>
                                         <li>

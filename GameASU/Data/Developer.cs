@@ -9,7 +9,7 @@ namespace GameASU.Data
 {
 
     #region Class Developer
-    [Table(Name = "tblDeveloper")]
+    [Table(Name = "tblDevelopers")]
     public class Developer
     {
 

@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using GameASU.Models;
 using System.Text;
 using GameASU.Controller;
+using System.Web.Security;
 
 namespace GameASU
 {
@@ -61,6 +62,8 @@ namespace GameASU
             try
             {
                 IdentityResult result = manager.AddToRole(UserID, "Developer");
+                
+                
 
             }
             catch (InvalidOperationException eOp)

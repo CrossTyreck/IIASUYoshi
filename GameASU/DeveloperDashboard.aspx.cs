@@ -40,7 +40,7 @@ namespace GameASU
                     Column.CssClass = "col-sm-3";
                     gameImage.CssClass = "img-responsive";
 
-                    gameImage.ImageUrl = game.TileImageLocation;
+                    gameImage.ImageUrl = "Images/" + game.TileImageLocation;
                     gameImage.Click += new ImageClickEventHandler(gameClick);
                     gameImage.AlternateText = game.GameName;
 

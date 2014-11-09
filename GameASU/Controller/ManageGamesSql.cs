@@ -72,7 +72,7 @@ namespace GameASU.Controller
                     UpdateGame.CommandType = CommandType.StoredProcedure;
 
                     UpdateGame.Parameters.Add("@ID", SqlDbType.Int).Value = game.Id;
-                    UpdateGame.Parameters.Add("@GameName", SqlDbType.VarChar, 200).Value = game.Id.ToString();
+                    UpdateGame.Parameters.Add("@GameName", SqlDbType.VarChar, 200).Value = game.GameName;
                     UpdateGame.Parameters.Add("@ScreenWidth", SqlDbType.Int).Value = game.ScreenWidth;
                     UpdateGame.Parameters.Add("@ScreenHeight", SqlDbType.Int).Value = game.ScreenHeight;
                     UpdateGame.Parameters.Add("@GameNameOnServer", SqlDbType.VarChar, 200).Value = game.Id.ToString() + ".unity3d";

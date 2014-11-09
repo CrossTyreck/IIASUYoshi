@@ -20,8 +20,8 @@ namespace GameASU
         {
             GameName = Request.QueryString["g"];
 
-            Game GametoLoad = GameDBConn.GetGame(System.Uri.EscapeDataString(GameName));
-            GameNameHeader.Text = GametoLoad.GameNameOnServer.Replace(".unity3d", "").Replace("_", " ");
+            Game GametoLoad = GameDBConn.GetGame(GameName);
+            GameNameHeader.Text = GametoLoad.GameName;
 
             Panel gamePanel = new Panel();
             gamePanel.ClientIDMode = ClientIDMode.Static;
@@ -32,7 +32,7 @@ namespace GameASU
             gameImage.ClientIDMode = ClientIDMode.Static;
             gameImage.ID = "#" + GametoLoad.GameNameOnServer.Replace(".unity3d", "");
             gameImage.Attributes.Add("onclick", "javascript:LoadUnityAfterClick('Games/" + GametoLoad.GameNameOnServer + "', '375', '750', '" + GametoLoad.GameNameOnServer.Replace(".unity3d", "") + "')");
-            gameImage.Attributes.Add("src", GametoLoad.TileImageLocation);
+            gameImage.Attributes.Add("src", "Images/" + GametoLoad.TileImageLocation);
 
             gamePanel.Controls.Add(gameImage);
 

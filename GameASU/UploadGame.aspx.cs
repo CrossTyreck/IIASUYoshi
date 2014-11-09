@@ -113,7 +113,7 @@ namespace GameASU
                                                         GameImageUpload.FileName.Substring(
                                                         GameImageUpload.FileName.LastIndexOf(".") + 1));
 
-                if (!(GameSql.UpdateGame(game, HttpContext.Current.Server.MapPath("~/Images/") + GameImageName).Equals("") &&
+                if (!(GameSql.UpdateGame(game, GameImageName).Equals("") &&
                     GameIIS.UploadGameImageToServer(GameImageName, GameImageUpload.PostedFile)))
                 { SetlblFileImageStatus(Status.UploadFail); }
 

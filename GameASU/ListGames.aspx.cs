@@ -12,7 +12,7 @@ namespace GameASU
 {
     public partial class ListGames : System.Web.UI.Page
     {
-        private GamesServer games = new GamesServer();
+        private GamesIIS games = new GamesIIS();
         private string error = String.Empty;
         protected String GamePath { get; set; }
         protected String GameName { get; set; }

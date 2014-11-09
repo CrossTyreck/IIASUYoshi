@@ -25,8 +25,8 @@ namespace GameASU
     {
         DBGame GameDBConn = new DBGame();
         DBDeveloper DevDBConn = new DBDeveloper();
-        GamesServer GameServer = new GamesServer();
-        DBGameSqlConn GameSqlConn = new DBGameSqlConn();
+        GamesIIS GameIIS = new GamesIIS();
+        ManageGameSql GameSql = new ManageGameSql();
 
         protected string UserID { get; set; }
 
@@ -35,7 +35,7 @@ namespace GameASU
             UploadSuccess,
             UploadFail,
             GoodFileExt,
-            BadFileExt
+            BadFileExt,
         };
 
 
@@ -43,9 +43,17 @@ namespace GameASU
         {
             if (!IsPostBack) { }
             else
-            { 
-                if (GameUpload.HasFile && VerifyFileExt()) { AddGame(); }
-                if (GameImageUpload.HasFile && VerifyImageFileExt()) { AddImage(); } 
+            {
+                Game Game = new Game(DevDBConn.GetDevID(Context.User.Identity.GetUserId()),
+                                    txtGameName.Text, Int32.Parse(txtWidth.Text),
+                                    Int32.Parse(txtHeight.Text), GameUpload.FileName,
+                                    GameUpload.FileName.Replace("unity3d",
+                                    GameImageUpload.FileName.Substring(GameImageUpload.FileName.LastIndexOf(".") + 1)));
+
+                
+                if (GameUpload.HasFile && VerifyFileExt()) { AddGame(Game); }
+                if (GameImageUpload.HasFile && VerifyImageFileExt()) { AddImage(Game); }
+               
             }
         }
 
@@ -79,19 +87,13 @@ namespace GameASU
             return false;
         }
 
-        private void AddGame()
+        private void AddGame(Game game)
         {
             try
             {
-                Game Game = GameSqlConn.InsertGame(DevDBConn.GetDevID(Context.User.Identity.GetUserId()), txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text), GameUpload.FileName, GameUpload.FileName.Replace("unity3d", GameImageUpload.FileName.Substring(GameImageUpload.FileName.LastIndexOf(".") + 1)));
-
-                GameSqlConn.UpdateGame(Game);
-
-                int ReturnedID = GameSqlConn.UpdateGame(Game);
-                if (!GameServer.UploadGameToServer(System.Uri.EscapeDataString(txtGameName.Text + GameUpload.FileName), GameUpload.PostedFile))
-                {
+                if (!(GameSql.InsertGame(game).Equals("") &&
+                    GameIIS.UploadGameToServer(game.Id.ToString() + ".unity3d", GameUpload.PostedFile)))
                     SetlblFileStatus(Status.UploadFail);
-                }
 
                 SetlblFileStatus(Status.UploadSuccess);
             }
@@ -103,23 +105,21 @@ namespace GameASU
 
         }
 
-        private void AddImage()
+        private void AddImage(Game game)
         {
             try
             {
-                if (!GameServer.UploadGameImageToServer(GameUpload.FileName.Replace("unity3d", GameImageUpload.FileName.Substring(GameImageUpload.FileName.LastIndexOf(".") + 1)), GameImageUpload.PostedFile))
-                {
-                    SetlblFileImageStatus(Status.UploadFail);
-                }
+                string GameImageName = GameUpload.FileName.Replace(GameUpload.FileName, game.Id.ToString() + "." + 
+                                                        GameImageUpload.FileName.Substring(
+                                                        GameImageUpload.FileName.LastIndexOf(".") + 1));
+
+                if (!(GameSql.UpdateGame(game, HttpContext.Current.Server.MapPath("~/Images/") + GameImageName).Equals("") &&
+                    GameIIS.UploadGameImageToServer(GameImageName, GameImageUpload.PostedFile)))
+                { SetlblFileImageStatus(Status.UploadFail); }
 
                 SetlblFileImageStatus(Status.UploadSuccess);
             }
-            catch (Exception e)
-            {
-                SetlblFileImageStatus(e.Message, Status.UploadFail);
-            }
-
-
+            catch (Exception e) { SetlblFileImageStatus(e.Message, Status.UploadFail); }
         }
 
         private string GetMessage(Status status)

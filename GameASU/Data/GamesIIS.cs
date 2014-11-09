@@ -12,9 +12,9 @@ namespace GameASU.Data
 {
     #region GamesSever
     /// <summary>
-    /// Access information about games loaded on the server.
+    /// Access information about games loaded on the IIS Server.
     /// </summary>
-    public class GamesServer
+    public class GamesIIS
     {
 
         #region Variables
@@ -32,7 +32,7 @@ namespace GameASU.Data
 
         #region Constructor
 
-        public GamesServer() { }
+        public GamesIIS() { }
 
         #endregion
 

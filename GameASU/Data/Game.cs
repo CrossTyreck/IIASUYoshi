@@ -52,14 +52,6 @@ namespace GameASU.Data
         }
 
         #endregion
-
-        #region Private Methods
-        public void InsertRecord()
-        {
-
-        }
-
-        #endregion
     }
 
     #endregion

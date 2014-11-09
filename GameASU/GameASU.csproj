@@ -386,11 +386,12 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controller\DBDeveloper.cs" />
-    <Compile Include="Controller\DBGameSqlConn.cs" />
+    <Compile Include="Controller\ManageGamesSql.cs" />
     <Compile Include="Controller\DBRole.cs" />
     <Compile Include="Controller\IServerFileUpload.cs" />
     <Compile Include="Controller\DBGame.cs" />
     <Compile Include="Controller\GameFileUpload.cs" />
+    <Compile Include="Controller\ManageGamesIIS.cs" />
     <Compile Include="Dashboard.Master.cs">
       <DependentUpon>Dashboard.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -400,7 +401,8 @@
     </Compile>
     <Compile Include="Data\Developer.cs" />
     <Compile Include="Data\Game.cs" />
-    <Compile Include="Data\GamesServer.cs" />
+    <Compile Include="Data\GamesIIS.cs" />
+    <Compile Include="Data\GamesSql.cs" />
     <Compile Include="Data\Role.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

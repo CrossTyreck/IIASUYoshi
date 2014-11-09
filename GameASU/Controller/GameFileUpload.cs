@@ -18,7 +18,25 @@ namespace GameASU.Model
                 obj.SaveAs(GameServerPath.GetPath(GameServerPath.fileType.Game, fileName));
                 return true;
             }
-            catch { return false; }
+            catch
+            {
+                //need error checking here for invalid characters in the file path
+                return false;
+            }
+        }
+
+        public bool UploadImage(string fileName, HttpPostedFile obj)
+        {
+            try
+            {
+                obj.SaveAs(GameServerPath.GetPath(GameServerPath.fileType.Image, fileName));
+                return true;
+            }
+            catch
+            {
+                //need error checking here for invalid characters in the file path
+                return false;
+            }
         }
     }
 }

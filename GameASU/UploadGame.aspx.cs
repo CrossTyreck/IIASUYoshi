@@ -15,6 +15,8 @@ using GameASU.Data;
 using GameASU.Models;
 using GameASU.Controller;
 using System.Drawing;
+using System.Data.Common;
+using System.Data;
 
 
 namespace GameASU
@@ -24,6 +26,7 @@ namespace GameASU
         DBGame GameDBConn = new DBGame();
         DBDeveloper DevDBConn = new DBDeveloper();
         GamesServer GameServer = new GamesServer();
+        DBGameSqlConn GameSqlConn = new DBGameSqlConn();
 
         protected string UserID { get; set; }
 
@@ -40,7 +43,10 @@ namespace GameASU
         {
             if (!IsPostBack) { }
             else
-            { if (GameUpload.HasFile && VerifyFileExt()) { AddGame(); } }
+            { 
+                if (GameUpload.HasFile && VerifyFileExt()) { AddGame(); }
+                if (GameImageUpload.HasFile && VerifyImageFileExt()) { AddImage(); } 
+            }
         }
 
         protected void UploadGame_Click(object sender, EventArgs e)
@@ -60,12 +66,29 @@ namespace GameASU
             return false;
         }
 
+        private bool VerifyImageFileExt()
+        {
+            if (System.IO.Path.GetExtension(GameUpload.FileName).ToLower() == ".unity3d")
+            {
+                SetlblFileImageStatus(Status.GoodFileExt);
+                return true;
+            }
+
+            SetlblFileImageStatus(Status.BadFileExt);
+
+            return false;
+        }
+
         private void AddGame()
         {
             try
             {
-                if (!GameServer.UploadGameToServer(GameUpload.FileName, GameUpload.PostedFile)
-                || !GameDBConn.InsertGame(DevDBConn.GetDevID(Context.User.Identity.GetUserId()), txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text), GameUpload.FileName))
+                Game Game = GameSqlConn.InsertGame(DevDBConn.GetDevID(Context.User.Identity.GetUserId()), txtGameName.Text, Int32.Parse(txtWidth.Text), Int32.Parse(txtHeight.Text), GameUpload.FileName, GameUpload.FileName.Replace("unity3d", GameImageUpload.FileName.Substring(GameImageUpload.FileName.LastIndexOf(".") + 1)));
+
+                GameSqlConn.UpdateGame(Game);
+
+                int ReturnedID = GameSqlConn.UpdateGame(Game);
+                if (!GameServer.UploadGameToServer(System.Uri.EscapeDataString(txtGameName.Text + GameUpload.FileName), GameUpload.PostedFile))
                 {
                     SetlblFileStatus(Status.UploadFail);
                 }
@@ -80,8 +103,21 @@ namespace GameASU
 
         }
 
-        private void AddGame(string gameName, int screenWidth, int screenHeight)
+        private void AddImage()
         {
+            try
+            {
+                if (!GameServer.UploadGameImageToServer(GameUpload.FileName.Replace("unity3d", GameImageUpload.FileName.Substring(GameImageUpload.FileName.LastIndexOf(".") + 1)), GameImageUpload.PostedFile))
+                {
+                    SetlblFileImageStatus(Status.UploadFail);
+                }
+
+                SetlblFileImageStatus(Status.UploadSuccess);
+            }
+            catch (Exception e)
+            {
+                SetlblFileImageStatus(e.Message, Status.UploadFail);
+            }
 
 
         }
@@ -130,6 +166,17 @@ namespace GameASU
         {
             lblFileStatus.Text = error + " " + GetMessage(status);
             lblFileStatus.BackColor = GetColor(status);
+        }
+        private void SetlblFileImageStatus(Status status)
+        {
+            lblFileImageStatus.Text = GetMessage(status);
+            lblFileImageStatus.BackColor = GetColor(status);
+        }
+
+        private void SetlblFileImageStatus(string error, Status status)
+        {
+            lblFileImageStatus.Text = error + " " + GetMessage(status);
+            lblFileImageStatus.BackColor = GetColor(status);
         }
     }
 }

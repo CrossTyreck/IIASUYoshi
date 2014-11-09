@@ -220,12 +220,6 @@
     <Content Include="GameHost.aspx">
       <BrowseToURL>~/GameHost.aspx</BrowseToURL>
     </Content>
-    <Content Include="Images\Space_Shooter.png" />
-    <Content Include="Images\carouselWolv1.png" />
-    <Content Include="Images\carouselWolv2.png" />
-    <Content Include="Images\Space_Shoot.png" />
-    <Content Include="Images\carouselWolv3.png" />
-    <Content Include="Images\gametileexample.jpg" />
     <Content Include="ListGames.aspx">
       <BrowseToURL>~/ListGames.aspx</BrowseToURL>
     </Content>
@@ -392,6 +386,7 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controller\DBDeveloper.cs" />
+    <Compile Include="Controller\DBGameSqlConn.cs" />
     <Compile Include="Controller\DBRole.cs" />
     <Compile Include="Controller\IServerFileUpload.cs" />
     <Compile Include="Controller\DBGame.cs" />
@@ -514,6 +509,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Games\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

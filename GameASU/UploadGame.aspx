@@ -17,6 +17,10 @@
             <asp:FileUpload ID="GameUpload" runat="server" Width="389px" />
             <h3><asp:Label ID="lblFileStatus" CssClass="label label-success" runat="server"></asp:Label></h3>
             <br />
+            <asp:Label ID="lblGameImageUpload" for="GameImageUpload" runat="server">Upload an image for your game! This is a tile image with dimensions 165px by 165px.</asp:Label>
+            <asp:FileUpload ID="GameImageUpload" runat="server" Width="389px" />
+            <h3><asp:Label ID="lblFileImageStatus" CssClass="label label-success" runat="server"></asp:Label></h3>
+            <br />
             <asp:Button ID="SubmitGame" runat="server" CssClass="btn btn-primary btn-lg" Text="Upload" />
         </asp:Panel>
     </div>

@@ -49,7 +49,7 @@ namespace GameASU
                         }
                     }
                 }
-                catch (Exception e) { }
+                catch { }
 
             }
         }

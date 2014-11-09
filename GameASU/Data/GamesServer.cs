@@ -42,9 +42,15 @@ namespace GameASU.Data
         public bool UploadGameToServer(string fName, HttpPostedFile hpf)
         {
             //have verification in here if the file is already on the server
-
             return GameUploader.Upload(fName, hpf);
            
+        }
+
+        public bool UploadGameImageToServer(string fName, HttpPostedFile hpf)
+        {
+            //have verification in here if the file is already on the server
+            return GameUploader.UploadImage(fName, hpf);
+
         }
 
         /// <summary>

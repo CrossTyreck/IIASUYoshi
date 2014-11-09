@@ -103,6 +103,33 @@ namespace GameASU {
         protected global::System.Web.UI.WebControls.Label lblFileStatus;
         
         /// <summary>
+        /// lblGameImageUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGameImageUpload;
+        
+        /// <summary>
+        /// GameImageUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload GameImageUpload;
+        
+        /// <summary>
+        /// lblFileImageStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFileImageStatus;
+        
+        /// <summary>
         /// SubmitGame control.
         /// </summary>
         /// <remarks>

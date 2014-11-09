@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameASU.Controller;
+using GameASU.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,39 +14,48 @@ namespace GameASU
         protected void Page_Load(object sender, EventArgs e)
         {
             GetDevName();
-            Panel rowContainer;
-            Panel column;
+            Panel RowContainer = new Panel();
+            Panel Column;
             ImageButton gameImage;
             Label gameName;
 
-            for (int row = 0; row <= 5; row++)
-            {
-                rowContainer = new Panel();
-                rowContainer.CssClass = "row top5";
+            DBGame DBGameContext = new DBGame();
 
-                //Rows can only contain 4 columns with the current front end
-                for (int col = 0; col <= 3; col++)
+            List<Game> Games = DBGameContext.SelectTableData().ToList<Game>();
+
+
+            foreach (Game game in Games)
+            {
+                for (int row = Games.IndexOf(game); row % 4 == 0; row++)
                 {
-                    column = new Panel();
+                    RowContainer = new Panel();
+                    RowContainer.CssClass = "row top5";
+
+                }
+               
+                    Column = new Panel();
                     gameImage = new ImageButton();
                     gameName = new Label();
 
-                    column.CssClass = "col-sm-3";
+                    Column.CssClass = "col-sm-3";
                     gameImage.CssClass = "img-responsive";
 
-                    gameImage.ImageUrl = "Images/gametileexample.jpg";
+                    gameImage.ImageUrl = game.TileImageLocation;
                     gameImage.Click += new ImageClickEventHandler(gameClick);
-                    gameImage.AlternateText = "Space_Shooter";
+                    gameImage.AlternateText = game.GameName;
 
-                    gameName.Text = gameImage.AlternateText + col;
+                    gameName.Text = gameImage.AlternateText;
 
-                    column.Controls.Add(gameImage);
-                    column.Controls.Add(gameName);
+                    Column.Controls.Add(gameImage);
+                    Column.Controls.Add(gameName);
 
-                    rowContainer.Controls.Add(column);
+                    RowContainer.Controls.Add(Column);
+                
+                for (int row = Games.IndexOf(game); row % 4 == 0; row++)
+                {
+                    GameList.Controls.Add(RowContainer);
                 }
-
-                GameList.Controls.Add(rowContainer);
+                
             }
         }
 

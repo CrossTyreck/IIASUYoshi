@@ -147,7 +147,7 @@ namespace GameASU
             else
             {
                 RemoveGames.Visible = false;
-                DeleteGameMessage.Text = "You have no games! Go to your main dashboard to upload a game!";
+                DeleteGameMessage.Text = "There are no games on the server.";
                 DeleteGameMessage.ForeColor = System.Drawing.Color.Red;
                 DeleteGameMessage.Visible = true;
             }

@@ -131,6 +131,42 @@ namespace GameASU.Controller
             return GameList;
         }
 
+        public Dictionary<int, string> GetGameListForGrid()
+        {
+
+            Dictionary<int, string> GameList = new Dictionary<int, string>();
+            SqlConnection DBConn = new SqlConnection(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString);
+
+            try
+            {
+                using (DBConn)
+                {
+                    SqlCommand GameListByDev = new SqlCommand();
+                    GameListByDev.Connection = DBConn;
+
+                    GameListByDev.CommandText = "SELECT tblGames.ID, tblGames.GameName FROM tblGames";
+                                                
+                    DBConn.Open();
+
+                    SqlDataReader GameListReader = GameListByDev.ExecuteReader();
+
+                    using (GameListReader)
+                    {
+                        while (GameListReader.Read())
+                        {
+                            GameList.Add((int)GameListReader["ID"], GameListReader["GameName"].ToString());
+                        }
+                    }
+                }
+
+            }
+            catch (SqlException e) { GameList.Add(-1, e.Message); }
+            finally
+            { }
+
+            return GameList;
+        }
+
         public bool DeleteGame(int devID, int gameID)
         {
             SqlConnection DBConn = new SqlConnection(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString);

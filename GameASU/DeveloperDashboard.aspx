@@ -7,7 +7,8 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar" id="sidebar" role="navigation">
                 <ul class="nav nav-sidebar">
-                    <li><a href="UploadGame.aspx" class="lead">Upload a game</a></li>
+                    <li><a href="UploadGame.aspx" class="lead">Upload a Game</a></li>
+                    <li><a href="ManageGames.aspx" class="lead">Manage Games</a></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-md-10 main">

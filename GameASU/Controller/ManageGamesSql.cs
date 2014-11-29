@@ -94,6 +94,69 @@ namespace GameASU.Controller
             catch (SqlException e) { return e.Message; }
         }
 
+        public Dictionary<int,string> GetGameListByDeveloperID(int devID)
+        {
+
+            Dictionary<int, string> GameList = new Dictionary<int, string>();
+            SqlConnection DBConn = new SqlConnection(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString);
+
+            try
+            {
+                using (DBConn)
+                {
+                    SqlCommand GameListByDev = new SqlCommand();
+                    GameListByDev.Connection = DBConn;
+                    //Should use a table valued function
+                    GameListByDev.CommandText = "SELECT tblGames.ID, tblGames.GameName FROM tblGames " +
+                                                "INNER JOIN tblDevelopers ON tblDevelopers.ID = tblGames.tblDeveloperID " +
+                                                "WHERE tblGames.tblDeveloperID = " + devID;
+                    DBConn.Open();
+
+                    SqlDataReader GameListReader = GameListByDev.ExecuteReader();
+
+                    using (GameListReader)
+                    {
+                        while (GameListReader.Read())
+                        {
+                            GameList.Add((int)GameListReader["ID"], GameListReader["GameName"].ToString());
+                        }
+                    }
+                }
+
+            }
+            catch (SqlException e) { GameList.Add(-1, e.Message); }
+            finally
+            { }
+
+            return GameList;
+        }
+
+        public bool DeleteGame(int devID, int gameID)
+        {
+            SqlConnection DBConn = new SqlConnection(global::System.Configuration.ConfigurationManager.ConnectionStrings["GameASU"].ConnectionString);
+            int ReturnValue = -1;
+            try
+            {
+                using (DBConn)
+                {
+                    SqlCommand GameListByDev = new SqlCommand();
+                    GameListByDev.Connection = DBConn;
+                    //Should use a table valued function
+                    GameListByDev.CommandText = "DELETE tblGames " +
+                                                "WHERE tblGames.tblDeveloperID = " + devID + " " +
+                                                "AND ID = " + gameID;
+                    DBConn.Open();
+
+                    ReturnValue = GameListByDev.ExecuteNonQuery();
+                }
+
+                if (ReturnValue == 1) return true;
+            }
+            catch { return false; }
+
+            return false;
+        }
+
         public IQueryable<Game> GetTableData()
         {
             return GameDC.SelectTableData();

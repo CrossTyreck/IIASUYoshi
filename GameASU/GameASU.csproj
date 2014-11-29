@@ -226,6 +226,7 @@
     <Content Include="ListGames.aspx">
       <BrowseToURL>~/ListGames.aspx</BrowseToURL>
     </Content>
+    <Content Include="ManageGames.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -451,6 +452,13 @@
     </Compile>
     <Compile Include="LoggedIn.Master.designer.cs">
       <DependentUpon>LoggedIn.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ManageGames.aspx.cs">
+      <DependentUpon>ManageGames.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageGames.aspx.designer.cs">
+      <DependentUpon>ManageGames.aspx</DependentUpon>
     </Compile>
     <Compile Include="Model\GameServerPath.cs" />
     <Compile Include="Model\IdentityModels.cs" />

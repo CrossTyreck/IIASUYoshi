@@ -6,6 +6,11 @@
         <asp:Panel ID="UploadPanel" runat="server">
             <asp:Label ID="lblGameName" for="txtGamename" runat="server" Text="Game Name:"></asp:Label>
             <asp:TextBox ID="txtGameName" CssClass="form-control" placeholder="Enter Game Name" runat="server" Width="837px"></asp:TextBox>
+            <asp:RequiredFieldValidator id="RequiredFieldValidatortxtGameName" runat="server"
+  ControlToValidate="txtGameName"
+  ErrorMessage="Last name is a required field."
+  ForeColor="Red">
+</asp:RequiredFieldValidator>
             <p class="lead">Game&#39;s Main Camera Viewing Dimensions:</p>
             <asp:Label ID="lblWidth" for="txtWidth" runat="server" Text="Width: "></asp:Label>
             <asp:TextBox ID="txtWidth" type="number" CssClass="form-control" placeholder="Enter Width" runat="server"></asp:TextBox>

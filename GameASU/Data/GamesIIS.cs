@@ -82,6 +82,17 @@ namespace GameASU.Data
             return (error.Equals(String.Empty)) ? true : false;
         }
 
+        public bool RemoveObjectsFromServer(string gameName, string imageName)
+        {
+ 
+            File.Delete(GameServerPath.GetPath(GameServerPath.fileType.Game, gameName));
+            File.Delete(GameServerPath.GetPath(GameServerPath.fileType.Image, imageName));
+        
+            if (!Games.Contains(gameName))
+                return true;
+
+            else return false;
+        }
         #endregion
 
     }

@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using Microsoft.AspNet.Identity;
+using GameASU.Data;
 
 namespace GameASU
 {
@@ -14,6 +15,8 @@ namespace GameASU
     {
         ManageGameSql GameSql = new ManageGameSql();
         DBDeveloper DevDBConn = new DBDeveloper();
+        GamesIIS ServerContext = new GamesIIS();
+        DBGame GameDb = new DBGame();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -49,6 +52,7 @@ namespace GameASU
             bool DisplayMessage = false;
             int DeveloperID = DevDBConn.GetDevID(Context.User.Identity.GetUserId());
             DeleteGameMessage.Text = "Game Removed!";
+            int GameID = -1;
 
             foreach (GridViewRow row in GameList.Rows)
             {
@@ -56,15 +60,17 @@ namespace GameASU
                 CheckBox cb = (CheckBox)row.FindControl("SelectedGame");
                 if (cb != null && cb.Checked)
                 {
-                    if (DeveloperID > -1)
-                        if (!(DisplayMessage = GameSql.DeleteGame(DeveloperID, Int32.Parse(row.Cells[1].Text))))
+                    GameID = Int32.Parse(row.Cells[1].Text);
+
+                    if (DeveloperID > -1 && GameID > -1)
+                        if (!(ServerContext.RemoveObjectsFromServer(GameDb.GetGameNameByID(GameID), GameDb.GetImageNameByID(GameID)) && GameSql.DeleteGame(DeveloperID, GameID)))
                         {
                             DeleteGameMessage.Text = "Error removing Game.";
                         }
                 }
             }
 
-            if (DisplayMessage)
+            if (!DisplayMessage)
             {
                 BindGameGridData(DeveloperID);
             }

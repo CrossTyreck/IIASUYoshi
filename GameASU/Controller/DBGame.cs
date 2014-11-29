@@ -47,6 +47,26 @@ namespace GameASU.Controller
             return gamesQuery;
         }
 
+        public string GetGameNameByID(int ID)
+        {
+            Game gamesQuery =
+              (from game in GameTable
+               where game.Id.Equals(ID)
+               select game).Single();
+
+            return gamesQuery.GameNameOnServer;
+        }
+
+        public string GetImageNameByID(int ID)
+        {
+            Game gamesQuery =
+              (from game in GameTable
+               where game.Id.Equals(ID)
+               select game).Single();
+
+            return gamesQuery.TileImageLocation;
+        }
+
         //Used for games and Developers.....What was I thinking?
         public override void SubmitChanges(ConflictMode failureMode)
         {

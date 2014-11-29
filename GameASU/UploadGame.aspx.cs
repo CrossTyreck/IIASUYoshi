@@ -50,10 +50,10 @@ namespace GameASU
                                     GameUpload.FileName.Replace("unity3d",
                                     GameImageUpload.FileName.Substring(GameImageUpload.FileName.LastIndexOf(".") + 1)));
 
-                
+
                 if (GameUpload.HasFile && VerifyFileExt()) { AddGame(Game); }
                 if (GameImageUpload.HasFile && VerifyImageFileExt()) { AddImage(Game); }
-               
+
             }
         }
 
@@ -76,15 +76,17 @@ namespace GameASU
 
         private bool VerifyImageFileExt()
         {
-            if (System.IO.Path.GetExtension(GameUpload.FileName).ToLower() == ".unity3d")
-            {
-                SetlblFileImageStatus(Status.GoodFileExt);
-                return true;
-            }
+            //need to refactor so that only specific image extensions are allowed
+            //if (System.IO.Path.GetExtension(GameUpload.FileName).ToLower() == ".unity3d")
+            //{
+            //    SetlblFileImageStatus(Status.GoodFileExt);
+            //    return true;
+            //}
 
-            SetlblFileImageStatus(Status.BadFileExt);
+            //SetlblFileImageStatus(Status.BadFileExt);
 
-            return false;
+            SetlblFileImageStatus(Status.GoodFileExt);
+            return true;
         }
 
         private void AddGame(Game game)
@@ -109,7 +111,7 @@ namespace GameASU
         {
             try
             {
-                string GameImageName = GameUpload.FileName.Replace(GameUpload.FileName, game.Id.ToString() + "." + 
+                string GameImageName = GameUpload.FileName.Replace(GameUpload.FileName, game.Id.ToString() + "." +
                                                         GameImageUpload.FileName.Substring(
                                                         GameImageUpload.FileName.LastIndexOf(".") + 1));
 
